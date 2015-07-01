@@ -13,7 +13,7 @@ languages: python
 
 ## Motivation / Why Should You Care?
 
-Often we want to represent real world concepts in code. For example we might want to store all of the posts a user has made on Facebook in our database. In this case *One* user has *Many* associated posts. This is a foundational component of database technology that allows for complex behaviors.
+Often we want to represent real world concepts in code. For example we might want to store all of the posts a user has made on Facebook in our database. In this case *One* user has *Many* associated posts, but a post was only ever created by one user. This is a foundational component of database technology that allows for complex behaviors.
 
 ## Lesson
 
