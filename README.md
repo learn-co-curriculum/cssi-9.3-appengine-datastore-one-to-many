@@ -41,7 +41,7 @@ class MainHandler(webapp2.RequestHandler):
             position = ndb.StringProperty()
 ```
 
-Notice that in this example, we define team as a KeyProperty. This means we are going to link the player’s team with our Team model.  Notice that reference property takes two arguments. The first is the model we want to link to: Team. This means we can only assign values of the type Team to the “team” variable. The next argument is what we want to call the collection, which in this case is roster.
+Notice that in this example, we define team as a KeyProperty. This means we are going to link the player’s team with our Team model. 
 
 Now we’re ready to add many players to our team, the Bulls.
 
