@@ -1,8 +1,4 @@
----
-tags: appengine, datastore, database, relationships, python
-level: 4
-languages: python
----
+
 
 # App Engine One-to-Many Relationships
 
