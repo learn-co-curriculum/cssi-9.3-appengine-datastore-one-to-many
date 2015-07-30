@@ -20,45 +20,41 @@ You can easily model the one to many relationship using `KeyProperty`, which all
 Let's talk about the NBA. How many players can be on one team? A lot right? But how many teams can a player belong to? Only one. So one team can have many players. Many players can belong to one (and only one) team.  So we need to set up a one-to-many relationship.
 
 ```python
-import os
-import webapp2
 from google.appengine.ext import ndb
 
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
+class Team(ndb.Model):
+    city = ndb.StringProperty()
+    name = ndb.StringProperty()
+    players = ndb.KeyProperty(Player, repeated=True)
 
-        class Team(ndb.Model):
-            city = ndb.StringProperty()
-            name = ndb.StringProperty()
-
-        class Player(ndb.Model):
-            team = ndb.KeyProperty(kind='Team')
-            last_name= ndb.StringProperty()
-            position = ndb.StringProperty()
+class Player(ndb.Model):
+    last_name= ndb.StringProperty()
+    position = ndb.StringProperty()
 ```
 
-Notice that in this example, we define team as a KeyProperty. This means we are going to link the player’s team with our Team model. 
+Notice that in this example, we define players as a KeyProperty. This means we are going to link a team's players with the Player Model
 
-Now we’re ready to add many players to our team, the Bulls.
+Now we’re ready to add many players.
 
 ```python
-da_bulls= Team(city='Chicago', name='Bulls')
-bulls_key = da_bulls.put()
-
-drose = Player(team=bulls_key,last_name='Rose', position='Point Guard')
-joakim = Player(team=bulls_key,last_name='Noah', position='Center')
-
+drose = Player(last_name='Rose', position='Point Guard')
 drose.put()
+joakim = Player(last_name='Noah', position='Center')
 joakim.put()
 ```
 
 We can use the datastore viewer in our admin port to check if these entries were created. First look at the AppEngine Launcher to find your admin port. Then put in localhost:NNNN where the 4 N’s are replaced by your port number (for most of you, it should be 8000). Then click Datastore Viewer.
-
-To show all of the players on Chicago’s roster, we  need to make a query of all of our players on the Bulls, store that data into a dictionary using .fetch, and then loop through that dictionary.
-
+ 
+Now that we have our players, we need to add them to our team. Since the players property in the Team model has an attribute, `repeated=True`, it is expecting a list. To initalize our team, we can just include our drose entitiy that we have already created. To access that entity and all of it's information we need to use drose.key
+ 
+ If we wanted to add a new player to the team, we could use the append method.
 ```python
-player_query = Player.query(Player.team = bulls_key)
-player_data = player_query.fetch()
-for player in player_data:
-     self.response.out.write('<p>'+player.last_name+'</p>')
+
+da_bulls= Team(city='Chicago', name='Bulls', players=[drose.key])
+da_bulls.players.append(joakim.key)
+da_bulls.put()
+
 ```
+ 
+
+
