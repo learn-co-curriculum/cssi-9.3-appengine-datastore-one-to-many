@@ -59,4 +59,4 @@ da_bulls.put()
 
 
 
-<a href='https://learn.co/lessons/cssi-9.3-appengine-datastore-one-to-many' data-visibility='hidden'>View this lesson on Learn.co</a>
+<p data-visibility='hidden'>View <a href='https://learn.co/lessons/cssi-9.3-appengine-datastore-one-to-many' title='App Engine One-to-Many Relationships'>App Engine One-to-Many Relationships</a> on Learn.co and start learning to code for free.</p>
